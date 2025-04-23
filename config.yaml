@@ -48,7 +48,7 @@ data:
   
   # here we take an ASE-readable file (in extxyz format) and split it into train:val:test = 80:10:10
   split_dataset:
-    file_path: ./Si_data/sitraj.xyz
+    file_path: ./sitraj.xyz
     train: 0.8
     val: 0.1
     test: 0.1
