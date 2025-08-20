@@ -230,7 +230,7 @@ training_module:
     # == ZBL pair potential ==
     pair_potential:
       _target_: nequip.nn.pair_potential.ZBL
-      units: metal     # Ang and kcal/mol, LAMMPS unit names;  allowed values "metal" and "real"
+      units: metal                            # LAMMPS unit names; allowed values "metal" and "real"
       chemical_species: ${chemical_symbols}   # must tell ZBL the chemical species of the various model atom types
 
 # global options
