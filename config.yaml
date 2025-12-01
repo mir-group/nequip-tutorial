@@ -67,7 +67,8 @@ data:
     # in this case, the atom types are the same as the chemical species, but we still have to include this
     # transformation to ensure that the data has 0-indexed atom type lists used in the various model operations 
     - _target_: nequip.data.transforms.ChemicalSpeciesToAtomTypeMapper
-      chemical_symbols: ${chemical_symbols}
+      model_type_names: ${model_type_names}
+      chemical_species_to_atom_type_map: ${list_to_identity_dict:${chemical_symbols}}
 
   # the following are torch.utils.data.DataLoader configs excluding the arguments `dataset` and `collate_fn`
   # https://pytorch.org/docs/stable/data.html#torch.utils.data.DataLoader
