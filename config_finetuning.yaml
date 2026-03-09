@@ -20,9 +20,6 @@ run: [train, test]
 # parameters that take thier values show up multiple times in the config, so this allows us to use
 # variable interpolation to keep their multiple instances consistent
 
-# data and model r_max can be different (model's r_max should be smaller), but we try to make them the same
-cutoff_radius: 6.0
-
 # There are two sets of atomic types to keep track of in most applications
 # -- there is the conventional atomic species (e.g. C, H), and a separate `type_names` known to the model.
 # The model only knows types based on a set of zero-based indices and user-given `type_names` argument.
@@ -32,8 +29,10 @@ cutoff_radius: 6.0
 # Because of this distinction, these variables show up as arguments across different categories, including, data, model, metrics and even callbacks.
 # In this case, we fix both to be the same, so we define a single set of each here and use variable interpolation to retrieve them below.
 # This ensures a single location where the values are set to reduce the chances of mis-configuring runs.
-model_package_path: /content/NequIP-OAM-L-0.1.nequip.zip
+model_package_path: /content/NequIP-OAM-S-0.1.nequip.zip
 model_type_names: ${type_names_from_package:${model_package_path}}
+# data and model r_max can be different (model's r_max should be smaller), but we try to make them the same
+cutoff_radius: ${cutoff_radius_from_package:${model_package_path}}
 results_dir: ./results_ft 
 
 
@@ -69,7 +68,6 @@ data:
     # transformation to ensure that the data has 0-indexed atom type lists used in the various model operations 
     - _target_: nequip.data.transforms.ChemicalSpeciesToAtomTypeMapper
       model_type_names: ${model_type_names}
-      chemical_species_to_atom_type_map: ${list_to_identity_dict:${model_type_names}}
 
   # the following are torch.utils.data.DataLoader configs excluding the arguments `dataset` and `collate_fn`
   # https://pytorch.org/docs/stable/data.html#torch.utils.data.DataLoader
